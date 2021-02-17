@@ -1,3 +1,7 @@
+# Thank you mitchese. You made all this possible! 
+The following code is running in a System with 2 SMA Tripower, 1 SMA Storage Boy 3.6 and a SMA Home Manager 2.0. In this system I added a Victron Multi Plus 2 GX and lifepo4 batteries. ESS is installed and grid feed in is disabled. This is Storage Boys job. The Multiplus has to run my server 24/7 and use only the large lifepo batteries. They will be recharged if there is overproduction or the SoC reachs 0%.
+
+
 # Victron Faker
 This small program emulates the ET340 Energy Meter in a Victron ESS System. It reads
 values from an existing SMA Home Manager 2.0, and publishes the result on dbus as
@@ -6,17 +10,23 @@ if it were the ET340 meter.
 Use this at your own risk, I have no association with Victron or SMA and am providing
 this for anyone who already has these components and wants to play around with this.
 
-I use this privately, and it works in my timezone, your results may vary
+I use this privately, and it works in Europe, your results may vary.
+
+# Prepare you environment
+In case you want to compile the tool by yourself or need some changes later on, you need to install the go Software. Follow the guides on their page according your operation system. 
+Otherwise you can use my precompiled .arm file. It is the one without extention. 
+
+Setup your GX device and enable SSH. In my case I enabled the ESS too.
 
 # Setup
-
-First ensure that this will work: Try out https://github.com/mitchese/sma_home_manager_printer
+1: Test
+First ensure that this will work: Try out the ready compiled .arm https://github.com/Schnema1/shm-et340/blob/master/sma_home_manager_printer 
 which will run on your Victron GX device and try to connect to the SMA meter. The above test
 program does _not_ publish its result on dbus for use by victron, only prints out the result
 for your verification. It should be relatively safe to test with.
 
 If the `sma_home_manager_printer` works and shows consistent/reliable result, then you can
-install this in the same way. Download the latest release and copy.
+install the shm.et340 in the same way.
 
 While this is running, you should see correct values for a grid meter in your Venus UI:
 
@@ -38,9 +48,7 @@ For more details, see the thread on the Victron Energy community forums here:
 
 https://community.victronenergy.com/questions/49293/alternative-to-et340-mqtt-sma-home-manager.html
 
-# TODO
+# Run at boot
+The script only works as long as you computer is connected through SSH. This is not what I wanted and probabl not what you want. We need to create an config file in order to get the shm-et340 run automaticly at system boot. 
 
-  - [ ] Setup a start/stop script and describe how to install as a system service
-  - [ ] Make builds and releases automatic
-  - [ ] Install and test with a real ESS / Multigrid
-  - [ ] Test against fw upgrades of the Venus OS
+Just use my sample Energymeter file and adjust the path and/or the name according to your desire.You must place this file in /etc/init.d/ on your GX device. Now make a reboot and enjoy your energy data in the web interface.
