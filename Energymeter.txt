@@ -1,0 +1,14 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          shm-et340
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+### END INIT INFO
+
+PATH=/data/home/root/
+NAME=shm-et340
+DESC=SMA Homemanager 2.0 -> Victron EM340 faker
