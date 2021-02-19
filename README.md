@@ -49,6 +49,13 @@ For more details, see the thread on the Victron Energy community forums here:
 https://community.victronenergy.com/questions/49293/alternative-to-et340-mqtt-sma-home-manager.html
 
 # Run at boot (not working yet)
-The script only works as long as you computer is connected through SSH. This is not what I wanted and probabl not what you want. We need to create an config file in order to get the shm-et340 run automaticly at system boot. 
+The script only works as long as you computer is connected through SSH. This is not what I wanted and probably not what you want. We need to create an config file in order to get the shm-et340 run automaticly at system boot. 
 
-Just use my sample Energymeter file and adjust the path and/or the name according to your desire.You must place this file in /etc/init.d/ on your GX device. Now make a reboot and enjoy your energy data in the web interface.
+create a file in /data/   called rc.local   -> /data/rc.local
+make it executable chmod +x and add the following two lines of code. Just as mitchese did. Remember to change the file name if your one is not called shm-et340
+
+!#/bin/bash
+sleep 15
+setsid /data/home/root/shm-et340 > /dev/null 2>/dev/null &
+
+After you have saved it, you type reboot and take a look at automatic running energymeter.
