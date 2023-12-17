@@ -18,6 +18,31 @@ Otherwise you can use my precompiled .arm file. It is the one without extention.
 
 Setup your GX device and enable SSH. In my case I enabled the ESS too.
 
+In order to get your arm file for Victron Multiplus II GX you need to compile the file. I have done this on a Windows machine. Follow these steps in order to get your armv7 file.
+
+    Download and install go environment
+    Check your env GOPATH= (go env) and take note of the path. Set GOOS=linux GOARCH=arm
+    Download the files form mitchese
+    In the file is a reference to https://github.com/dmichael/go-multicast 4.1 Download this repo too and copy it in your GOPATH /src folder. --> C:\Users"yourusername"\go\src\go-multicast-master
+    You now have to adjust the import folder for go-multicast-master. In my case the GOPATH=C:\Users"yourusername"\go and I had to modify C:\Users"yourusername"\go\src\go-multicast-master\main.go file. In import section (line 13) i corrected the path as follow: "go-multicast-master/multicast".
+    You now modify the sma_home_manager_printer part the same way. In my case again "go-multicast-master/multicast".
+    Finally you can build your file.Open a command promt and move to the downloaded and previously modified file sma_home_manager_printer.go. Compile it with: go build -o sma_home_manager_printer.armv7
+
+Now you need to prepare your Multiplus:
+
+    Switch on the Multiplus and connect the ethernet port to a router or a network switch. I had a switch only.
+    the IP address wil be printed on the screen of the Multiplus. Remember it runs his own DHCP Server.
+    Open a browser window and insert the IP Address of the Multiplus.
+    You will land on the mainpage. Use your keybaord cursors to navigate. Settings --> General --> Set root passwor. Do so and choos a strong password. Add it to your password manager. If you don't have it, its time to organize one.
+    Set the Access Level to User and installer, the password is ZZZ
+    Highlight Access Level (don't open the select page!)
+    Press and hold the right curser of your keyboard until you see the Access Level change to Superuser.
+    Go to Settings → General → Set root password. And create a root password. Note that, for firmware version v2.00 and later, the root password will be reset by a firmware update. The reason is that the passwd file is on the rootfs, which is fully replaced by an update.
+    Finally you activate SSH.
+    Install first, or if you have it already, open putty and connect to your Multiplus through SSH. You also can use MobaXterm is you like to have more copy paste style.
+
+https://www.victronenergy.com/live/ccgx:root_access
+
 # Setup
 1: Test
 First ensure that this will work: Try out the ready compiled .arm https://github.com/Schnema1/shm-et340/blob/master/sma_home_manager_printer 
