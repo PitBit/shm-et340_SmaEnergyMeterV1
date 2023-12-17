@@ -265,9 +265,14 @@ func msgHandler(src *net.UDPAddr, n int, b []byte) {
 	updateVariant(float64(einsptot), "kWh", "/Ac/Energy/Reverse")
 	updateVariant(float64(bezugtot), "kWh", "/Ac/Energy/Forward")
 
-	L1 := decodePhaseChunk(b[164:308])
+	/* PitBit adapted this part, it´s defferent between original one (for SMA Energy Meter v2.0)
+ 	L1 := decodePhaseChunk(b[164:308])
 	L2 := decodePhaseChunk(b[308:452])
 	L3 := decodePhaseChunk(b[452:596])
+	*/
+	L1 := decodePhaseChunk(b[156:300])
+	L2 := decodePhaseChunk(b[300:444])
+	L3 := decodePhaseChunk(b[444:588])
 
 	log.Debug("+-----+-------------+---------------+---------------+")
 	log.Debug("|value|   L1 \t|     L2  \t|   L3  \t|")
